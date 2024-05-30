@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Comparison Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="results-container">
+        <h2>Results for "{{ product }}"</h2>
+        <form action="{{ url_for('compare') }}" method="post">
+            <div class="form-group">
+                <label for="product">Enter product name:</label>
+                <input type="text" id="product" name="product" placeholder="Enter product name" required>
+            </div>
+            <button type="submit" class="btn">Compare Prices</button>
+        </form>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        <div class="results">
+            <h3>Flipkart Results:</h3>
+            {% for title, details in flipkart_results.items() %}
+                <div class="result-item">
+                    <p><a href="{{ details[1] }}" target="_blank">{{ title }}</a>: {{ details[0] }}</p>
+                </div>
+            {% endfor %}
+            <h3>Amazon Results:</h3>
+            {% for title, details in amazon_results.items() %}
+                <div class="result-item">
+                    <p><a href="{{ details[1] }}" target="_blank">{{ title }}</a>: {{ details[0] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
